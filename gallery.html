@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DANFER School - Gallery PRO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DANFER SCHOOL GALLERY CSS - MATCHING HOME PAGE ===== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.section-padding {
+    padding: 40px 0;
+}
+
+/* ===== HEADER - MATCHING HOME PAGE ===== */
+.header {
+    background: linear-gradient(135deg, #1a237e 0%, #303f9f 100%);
+    color: white;
+    padding: 12px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.header h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.back-btn {
+    color: white;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.back-btn:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateX(-5px);
+}
+
+.current-date {
+    font-size: 0.85rem;
+    background: rgba(255,255,255,0.15);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 400;
+    backdrop-filter: blur(5px);
+}
+
+/* ===== PAGE TITLE ===== */
+.page-title {
+    text-align: center;
+    margin: 20px 0 30px;
+}
+
+.page-title h1 {
+    color: #1a237e;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    margin-bottom: 8px;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 15px;
+    display: inline-block;
+}
+
+.page-title h1:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: #ff6b6b;
+    border-radius: 2px;
+}
+
+.page-title p {
+    color: #666;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+/* ===== SECTION HEADERS ===== */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 30px 0 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.section-icon {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #1a237e, #303f9f);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+    box-shadow: 0 5px 15px rgba(26, 35, 126, 0.2);
+}
+
+.section-title {
+    color: #1a237e;
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    margin: 0;
+    font-weight: 600;
+}
+
+/* ===== IMAGES GRID ===== */
+.images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.image-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+    cursor: pointer;
+    aspect-ratio: 4/3;
+    position: relative;
+}
+
+.image-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(26, 35, 126, 0.15);
+    border-color: #1a237e;
+}
+
+.image-thumb {
+    width: 100%;
+    height: 100%;
+    background: #e8eaf6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.image-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.image-card:hover .image-thumb img {
+    transform: scale(1.08);
+}
+
+.image-thumb i {
+    font-size: 3.5rem;
+    color: #1a237e;
+    opacity: 0.6;
+}
+
+/* ===== VIDEOS GRID ===== */
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.video-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+    cursor: pointer;
+    aspect-ratio: 16/9;
+    position: relative;
+}
+
+.video-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(26, 35, 126, 0.15);
+    border-color: #1a237e;
+}
+
+.video-thumb {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #1a1f3a;
+}
+
+.video-thumb video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* Video Play Button */
+.video-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55px;
+    height: 55px;
+    background: rgba(26, 35, 126, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 2;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(2px);
+}
+
+.video-card:hover .video-play-icon {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: #ff6b6b;
+    border-color: white;
+}
+
+/* Video Duration Badge */
+.video-duration-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    z-index: 2;
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(255,255,255,0.2);
+    font-weight: 500;
+}
+
+/* Video Quality Indicator */
+.video-indicator {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ff6b6b;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(255,107,107,0.4);
+}
+
+/* ===== LIGHTBOX ===== */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 3000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Close Button */
+.lightbox-close {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 3100;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.lightbox-close:hover {
+    background: #ff6b6b;
+    transform: rotate(90deg);
+    border-color: #ff6b6b;
+}
+
+.lightbox-media-container {
+    max-width: 95vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-image-container {
+    max-width: 100%;
+    max-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox-image-container img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.lightbox-video-container {
+    max-width: 100%;
+    max-height: 90vh;
+}
+
+.lightbox-video-container video {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Navigation Arrows */
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    background: rgba(255,255,255,0.1);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 3200;
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(5px);
+}
+
+.lightbox-nav:hover {
+    background: #ff6b6b;
+    transform: translateY(-50%) scale(1.1);
+    border-color: #ff6b6b;
+}
+
+.lightbox-nav.prev {
+    left: 20px;
+}
+
+.lightbox-nav.next {
+    right: 20px;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255,255,255,0.2);
+    border-top-color: #ff6b6b;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Error Message */
+.error-message {
+    color: #ff6b6b;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 30px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 12px;
+}
+
+.error-message i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+/* ===== BACK TO TOP BUTTON ===== */
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #1a237e;
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 99;
+    font-size: 1.2rem;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: #ff6b6b;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablet Landscape (1024px - 769px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .images-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+    }
+    
+    .videos-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+    
+    .container {
+        padding: 0 25px;
+    }
+    
+    .lightbox-nav {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+    }
+}
+
+/* Tablet Portrait (768px - 481px) */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .current-date {
+        width: 100%;
+        text-align: center;
+        font-size: 0.8rem;
+    }
+    
+    .back-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .images-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .videos-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .section-header {
+        gap: 12px;
+        margin: 25px 0 20px;
+    }
+    
+    .section-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+    }
+    
+    /* Lightbox adjustments for tablet */
+    .lightbox-close {
+        top: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.8rem;
+    }
+    
+    .lightbox-nav {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+    }
+    
+    .lightbox-nav.prev {
+        left: 10px;
+    }
+    
+    .lightbox-nav.next {
+        right: 10px;
+    }
+    
+    .video-play-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+    }
+}
+
+/* Mobile Landscape (480px - 376px) */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .section-padding {
+        padding: 30px 0;
+    }
+    
+    .page-title h1 {
+        font-size: 1.8rem;
+    }
+    
+    .page-title p {
+        font-size: 0.85rem;
+    }
+    
+    .images-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .videos-grid {
+        gap: 15px;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        border-bottom: none;
+        background: rgba(26, 35, 126, 0.05);
+        padding: 15px;
+        border-radius: 12px;
+    }
+    
+    .section-icon {
+        margin-bottom: 5px;
+    }
+    
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    /* Lightbox adjustments for mobile */
+    .lightbox {
+        padding: 10px;
+    }
+    
+    .lightbox-close {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+    
+    .lightbox-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+    }
+    
+    .lightbox-nav.prev {
+        left: 5px;
+    }
+    
+    .lightbox-nav.next {
+        right: 5px;
+    }
+    
+    .video-play-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+    
+    .video-indicator {
+        font-size: 0.65rem;
+        padding: 3px 8px;
+    }
+    
+    .video-duration-badge {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+}
+
+/* Mobile Small (375px and below) */
+@media (max-width: 375px) {
+    .page-title h1 {
+        font-size: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+    }
+    
+    .section-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .image-card {
+        border-radius: 10px;
+    }
+    
+    .video-card {
+        border-radius: 10px;
+    }
+    
+    .video-play-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .lightbox-nav {
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
+    }
+    
+    .lightbox-close {
+        width: 35px;
+        height: 35px;
+        font-size: 1.3rem;
+    }
+}
+
+/* Height-based media queries for landscape orientation on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .lightbox-media-container {
+        max-height: 80vh;
+    }
+    
+    .lightbox-image-container img,
+    .lightbox-video-container video {
+        max-height: 80vh;
+    }
+    
+    .video-play-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1a237e;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff6b6b;
+}
+
+/* Selection color */
+::selection {
+    background: #1a237e;
+    color: white;
+}
+
+/* Focus styles for accessibility */
+.image-card:focus-visible,
+.video-card:focus-visible,
+.back-btn:focus-visible,
+.lightbox-close:focus-visible,
+.lightbox-nav:focus-visible,
+.back-to-top:focus-visible {
+    outline: 3px solid #ff6b6b;
+    outline-offset: 3px;
+}
+
+/* Print styles */
+@media print {
+    .header,
+    .back-to-top,
+    .lightbox-nav,
+    .lightbox-close,
+    .video-play-icon,
+    .video-indicator,
+    .video-duration-badge {
+        display: none !important;
+    }
+    
+    .image-card,
+    .video-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Premium Header -->
+    <div class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <h2 style="font-weight: 600; letter-spacing: 1px;">DANFER SCHOOL <span style="color: #e94560; font-weight: 300;">PRO</span></h2>
+                <div class="current-date" id="currentDate"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container section-padding">
+        <div class="page-title">
+            <h1><i class="fas fa-images" style="margin-right: 15px;"></i> GALLERY</h1>
+            <p>✦ PREMIUM COLLECTION ✦</p>
+        </div>
+
+        <!-- ===== IMAGES SECTION ===== -->
+        <div class="section-header">
+            <div class="section-icon"><i class="fas fa-camera-retro"></i></div>
+            <h2 class="section-title">PHOTO GALLERY</h2>
+        </div>
+        
+        <div class="images-grid" id="imagesGrid">
+            <!-- Images 1-12 with error handling -->
+            <div class="image-card" data-type="image" data-src="assets\images\logo.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/logo.jpg" alt="Eyob" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+            <div class="image-card" data-type="image" data-src="assets/images/image2.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image2.jpg" alt="Image 2" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+            <div class="image-card" data-type="image" data-src="assets/images/image3.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image3.jpg" alt="Image 3" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+            <div class="image-card" data-type="image" data-src="assets/images/image4.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image4.jpg" alt="Image 4" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+            <div class="image-card" data-type="image" data-src="assets/images/image5.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image5.jpg" alt="Image 5" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+            <div class="image-card" data-type="image" data-src="assets/images/image6.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image6.jpg" alt="Image 6" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+            <div class="image-card" data-type="image" data-src="assets/images/image7.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image7.jpg" alt="Image 7" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+            <div class="image-card" data-type="image" data-src="assets/images/image8.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image8.jpg" alt="Image 8" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+            <div class="image-card" data-type="image" data-src="assets/images/image9.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image9.jpg" alt="Image 9" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+            <div class="image-card" data-type="image" data-src="assets/images/image10.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image10.jpg" alt="Image 10" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+            <div class="image-card" data-type="image" data-src="assets/images/image11.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image11.jpg" alt="Image 11" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+            <div class="image-card" data-type="image" data-src="assets/images/image12.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image12.jpg" alt="Image 12" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+             <div class="image-card" data-type="image" data-src="assets/images/image13.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image13.jpg" alt="Image 12" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+             <div class="image-card" data-type="image" data-src="assets/images/image14.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image14.jpg" alt="Image 12" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+             <div class="image-card" data-type="image" data-src="assets/images/image15.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image15.jpg" alt="Image 12" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+             <div class="image-card" data-type="image" data-src="assets/images/image16.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image16.jpg" alt="Image 12" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+             <div class="image-card" data-type="image" data-src="assets\images\image17.jpg">
+                <div class="image-thumb">
+                    <img src="assets\images\image17.jpg" alt="Image 12" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+             <div class="image-card" data-type="image" data-src="assets/images/image18.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image18.jpg" alt="Image 12" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+             <div class="image-card" data-type="image" data-src="assets/images/image19.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image19.jpg" alt="Image 12" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+             <div class="image-card" data-type="image" data-src="assets/images/image20.jpg">
+                <div class="image-thumb">
+                    <img src="assets/images/image20.jpg" alt="Image 12" loading="lazy" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-image\'></i>';">
+                </div>
+            </div>
+                
+        </div>
+
+        <!-- ===== VIDEOS SECTION ===== -->
+        <div class="section-header">
+            <div class="section-icon"><i class="fas fa-video"></i></div>
+            <h2 class="section-title">VIDEO GALLERY</h2>
+        </div>
+        
+        <div class="videos-grid" id="videosGrid">
+            <!-- Video 1 -->
+            <div class="video-card" data-type="video" data-src="assets/videos/video1.mp4">
+                <div class="video-thumb">
+                    <video preload="metadata" src="assets/videos/video1.mp4" muted></video>
+                    <div class="video-indicator">4K</div>
+                    <div class="video-play-icon"><i class="fas fa-play"></i></div>
+                    <span class="video-duration-badge" id="duration1">00:00</span>
+                </div>
+            </div>
+           
+
+    <!-- Premium Lightbox (NO CAPTIONS/ADDRESSES) -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+            <div class="lightbox-media-container" id="lightboxMediaContainer"></div>
+            <div class="lightbox-nav prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></div>
+            <div class="lightbox-nav next" id="lightboxNext"><i class="fas fa-chevron-right"></i></div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current date with premium format
+            const currentDateElement = document.getElementById('currentDate');
+            if (currentDateElement) {
+                const now = new Date();
+                const options = { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                };
+                currentDateElement.innerHTML = `<i class="far fa-calendar-alt" style="margin-right: 8px;"></i>${now.toLocaleDateString('en-US', options)}`;
+            }
+
+            // Get video elements to extract duration and first frame
+            const videoCards = document.querySelectorAll('.video-card');
+            videoCards.forEach((card, index) => {
+                const video = card.querySelector('video');
+                const durationBadge = card.querySelector('.video-duration-badge');
+                
+                if (video) {
+                    // Load metadata to get duration and first frame
+                    video.addEventListener('loadedmetadata', function() {
+                        // Format duration
+                        const minutes = Math.floor(video.duration / 60);
+                        const seconds = Math.floor(video.duration % 60);
+                        durationBadge.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    });
+                    
+                    // Set to first frame (0.1 seconds) and pause
+                    video.currentTime = 0.1;
+                    video.pause();
+                    
+                    // Error handling for video
+                    video.onerror = function() {
+                        durationBadge.textContent = 'ERR';
+                        const playIcon = card.querySelector('.video-play-icon');
+                        if (playIcon) playIcon.style.background = '#ff0000';
+                    };
+                }
+            });
+
+            // Get all media elements
+            const imageCards = Array.from(document.querySelectorAll('.image-card[data-type="image"]'));
+            const videoCardsList = Array.from(document.querySelectorAll('.video-card[data-type="video"]'));
+            
+            // Combine all media
+            const allMedia = [
+                ...imageCards.map(card => ({ type: 'image', src: card.dataset.src, element: card })),
+                ...videoCardsList.map(card => ({ type: 'video', src: card.dataset.src, element: card }))
+            ];
+
+            // Lightbox elements
+            const lightbox = document.getElementById('lightbox');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+            const mediaContainer = document.getElementById('lightboxMediaContainer');
+            
+            let currentIndex = 0;
+            let currentVideo = null;
+
+            // Function to show media in lightbox (NO CAPTIONS)
+            function showMedia(index) {
+                if (index < 0 || index >= allMedia.length) return;
+                
+                currentIndex = index;
+                const media = allMedia[index];
+                
+                // Clear container with loading spinner
+                mediaContainer.innerHTML = '<div class="loading-spinner"></div>';
+                
+                setTimeout(() => {
+                    mediaContainer.innerHTML = '';
+                    
+                    if (media.type === 'image') {
+                        // Show image - NO CAPTION/TEXT
+                        const imgContainer = document.createElement('div');
+                        imgContainer.className = 'lightbox-image-container';
+                        
+                        const img = document.createElement('img');
+                        img.src = media.src;
+                        img.alt = '';
+                        
+                        // Handle image error
+                        img.onerror = function() {
+                            imgContainer.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 15px;"></i><br>Image not found</div>';
+                        };
+                        
+                        // Remove loading spinner when image loads
+                        img.onload = function() {
+                            // Image loaded successfully
+                        };
+                        
+                        imgContainer.appendChild(img);
+                        mediaContainer.appendChild(imgContainer);
+                        
+                    } else {
+                        // Show video - NO CAPTION/TEXT
+                        const videoContainer = document.createElement('div');
+                        videoContainer.className = 'lightbox-video-container';
+                        
+                        const video = document.createElement('video');
+                        video.controls = true;
+                        video.autoplay = true;
+                        video.src = media.src;
+                        
+                        // Handle video error
+                        video.onerror = function() {
+                            videoContainer.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 15px;"></i><br>Video not found</div>';
+                        };
+                        
+                        videoContainer.appendChild(video);
+                        mediaContainer.appendChild(videoContainer);
+                        
+                        // Store reference to pause later
+                        currentVideo = video;
+                    }
+                }, 300); // Small delay for smooth transition
+            }
+
+            // Add click handlers to image cards
+            imageCards.forEach((card) => {
+                card.addEventListener('click', () => {
+                    const globalIndex = allMedia.findIndex(m => m.element === card);
+                    if (globalIndex !== -1) {
+                        showMedia(globalIndex);
+                        lightbox.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            // Add click handlers to video cards
+            videoCardsList.forEach((card) => {
+                card.addEventListener('click', () => {
+                    const globalIndex = allMedia.findIndex(m => m.element === card);
+                    if (globalIndex !== -1) {
+                        showMedia(globalIndex);
+                        lightbox.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            // Close lightbox
+            if (lightboxClose) {
+                lightboxClose.addEventListener('click', () => {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                    if (currentVideo) {
+                        currentVideo.pause();
+                        currentVideo = null;
+                    }
+                });
+            }
+
+            // Click outside to close
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                    if (currentVideo) {
+                        currentVideo.pause();
+                        currentVideo = null;
+                    }
+                }
+            });
+
+            // Previous button
+            if (lightboxPrev) {
+                lightboxPrev.addEventListener('click', () => {
+                    if (allMedia.length === 0) return;
+                    currentIndex = (currentIndex - 1 + allMedia.length) % allMedia.length;
+                    showMedia(currentIndex);
+                });
+            }
+
+            // Next button
+            if (lightboxNext) {
+                lightboxNext.addEventListener('click', () => {
+                    if (allMedia.length === 0) return;
+                    currentIndex = (currentIndex + 1) % allMedia.length;
+                    showMedia(currentIndex);
+                });
+            }
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                
+                if (e.key === 'Escape') {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                    if (currentVideo) {
+                        currentVideo.pause();
+                        currentVideo = null;
+                    }
+                } else if (e.key === 'ArrowLeft') {
+                    lightboxPrev?.click();
+                } else if (e.key === 'ArrowRight') {
+                    lightboxNext?.click();
+                }
+            });
+
+            // Back to top with smooth scroll
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', function() {
+                if (backToTop) {
+                    backToTop.classList.toggle('visible', window.scrollY > 300);
+                }
+            });
+            
+            if (backToTop) {
+                backToTop.addEventListener('click', function() {
+                    window.scrollTo({ 
+                        top: 0, 
+                        behavior: 'smooth' 
+                    });
+                });
+            }
+
+            // Preload next and previous images for faster navigation
+            function preloadMedia(index) {
+                const nextIndex = (index + 1) % allMedia.length;
+                const prevIndex = (index - 1 + allMedia.length) % allMedia.length;
+                
+                [nextIndex, prevIndex].forEach(idx => {
+                    const media = allMedia[idx];
+                    if (media.type === 'image') {
+                        const img = new Image();
+                        img.src = media.src;
+                    }
+                });
+            }
+
+            // Add swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            lightbox.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            lightbox.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchEndX < touchStartX - 50) {
+                    // Swipe left - next
+                    lightboxNext?.click();
+                } else if (touchEndX > touchStartX + 50) {
+                    // Swipe right - previous
+                    lightboxPrev?.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

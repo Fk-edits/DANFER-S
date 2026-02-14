@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books & Resources - DANFER School</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #f8f9fa; color: #333; line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        .section-padding { padding: 40px 0; }
+        
+        /* Header */
+        .header { 
+            background: linear-gradient(135deg, #1a237e 0%, #303f9f 100%); 
+            color: white; 
+            padding: 12px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .back-btn { 
+            color: white; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 16px; border-radius: 8px; background: rgba(255,255,255,0.1);
+            transition: all 0.3s ease; border: 1px solid transparent; font-size: 0.9rem;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.2); transform: translateX(-5px); }
+        .current-date {
+            font-size: 0.85rem; background: rgba(255,255,255,0.15); padding: 6px 12px; border-radius: 20px;
+        }
+        
+        /* Page Title */
+        .page-title { text-align: center; margin: 20px 0 30px; }
+        .page-title h1 { 
+            color: #1a237e; font-size: clamp(1.5rem, 4vw, 2.2rem); margin-bottom: 8px;
+            display: inline-block; position: relative; padding-bottom: 10px;
+        }
+        .page-title h1:after {
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 3px; background: #ff6b6b; border-radius: 2px;
+        }
+        .page-title p { color: #666; font-size: clamp(0.85rem, 2.5vw, 1rem); max-width: 600px; margin: 0 auto; padding: 0 15px; }
+        
+        /* Search Box */
+        .search-box { position: relative; margin-bottom: 25px; }
+        .search-input {
+            width: 100%; padding: 12px 20px; padding-left: 45px;
+            border: 2px solid #e0e0e0; border-radius: 40px; font-size: 0.9rem;
+            background: white; box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        .search-input:focus { outline: none; border-color: #1a237e; }
+        .search-icon {
+            position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+            color: #666; font-size: 1rem;
+        }
+        .search-clear {
+            position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; color: #999; cursor: pointer;
+            font-size: 0.9rem; padding: 5px; display: none;
+        }
+        .search-clear:hover { color: #ff6b6b; }
+        
+        .no-results {
+            text-align: center; padding: 30px; background: white; border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin: 20px 0; display: none;
+        }
+        .no-results i { font-size: 2.5rem; color: #ff6b6b; margin-bottom: 10px; }
+        .no-results h3 { color: #1a237e; margin-bottom: 5px; font-size: 1.2rem; }
+        
+        /* Grade Navigation */
+        .grade-nav {
+            background: white; border-radius: 12px; padding: 15px; margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); position: sticky; top: 70px; z-index: 99;
+        }
+        .grade-nav h3 {
+            color: #1a237e; margin-bottom: 12px; padding-bottom: 8px;
+            border-bottom: 2px solid #eee; font-size: clamp(1rem, 3vw, 1.2rem);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .grade-links { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+        .grade-link {
+            padding: 6px 12px; background: #f8f9fa; color: #1a237e;
+            text-decoration: none; border-radius: 6px; font-weight: 500;
+            font-size: 0.85rem; transition: all 0.2s ease; border: 1px solid transparent;
+            min-width: 45px; text-align: center;
+        }
+        .grade-link:hover { background: #e8eaf6; transform: translateY(-2px); }
+        .grade-link.active { background: #1a237e; color: white; }
+        .grade-link.other { background: #ff6b6b; color: white; }
+        
+        /* Books Grid Section */
+        .books-section { margin-bottom: 30px; scroll-margin-top: 130px; }
+        .section-header {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 15px;
+            padding-bottom: 8px; border-bottom: 2px solid #eee;
+        }
+        .section-icon {
+            width: 40px; height: 40px; background: linear-gradient(135deg, #1a237e, #303f9f);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.1rem; flex-shrink: 0;
+        }
+        .section-title {
+            color: #1a237e; font-size: clamp(1.1rem, 3.5vw, 1.5rem); margin: 0;
+        }
+        
+        /* Books Grid - FULLY RESPONSIVE */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        
+        /* COMPACT BOOK CARD */
+        .book-card {
+            background: white;
+            border-radius: 10px;
+            padding: 12px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            border: 1px solid #eee;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .book-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.1);
+            border-color: #1a237e;
+        }
+        
+        .book-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff6b6b;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.6rem;
+            font-weight: 600;
+        }
+        
+        .book-cover {
+            width: 45px;
+            height: 45px;
+            background: #e8eaf6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .book-cover i {
+            font-size: 1.5rem;
+            color: #1a237e;
+        }
+        
+        .book-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1a237e;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .book-author {
+            color: #666;
+            font-size: 0.7rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .book-author i { color: #ff6b6b; font-size: 0.65rem; }
+        
+        .book-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .book-subject {
+            background: #e8eaf6;
+            color: #1a237e;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.65rem;
+            font-weight: 500;
+        }
+        
+        /* SINGLE OPEN BUTTON */
+        .book-actions {
+            display: flex;
+            width: 100%;
+        }
+        
+        .open-btn {
+            width: 100%;
+            padding: 6px 0;
+            background: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+        
+        .open-btn:hover {
+            background: #ff6b6b;
+        }
+        
+        .open-btn i {
+            font-size: 0.7rem;
+        }
+        
+        /* Favorite Button */
+        .favorite-btn {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: none;
+            border: none;
+            color: #ffb74d;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 2;
+        }
+        .favorite-btn:hover { transform: scale(1.2); }
+        .favorite-btn.active { color: #ff9800; }
+        .favorite-btn.active i { font-weight: 900; }
+        
+        /* Favorites Section */
+        .favorites-section {
+            background: #fff9e6;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 2px dashed #ffb74d;
+        }
+        .favorites-section .section-icon {
+            background: linear-gradient(135deg, #ffb74d, #ff9800);
+        }
+        .favorites-section .section-title {
+            color: #ff9800;
+        }
+        
+        /* Other Books Section */
+        .other-books-section {
+            background: #fff0f0;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 25px;
+            border: 2px dashed #ff6b6b;
+        }
+        .other-books-section .section-icon {
+            background: linear-gradient(135deg, #ff6b6b, #ff5252);
+        }
+        .other-books-section .section-title {
+            color: #ff5252;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed; bottom: 20px; right: 20px; background: #1a237e; color: white;
+            width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; cursor: pointer; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 99;
+        }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: #ff6b6b; transform: translateY(-3px); }
+        
+        /* EXTRA SMALL SCREENS */
+        @media (max-width: 480px) {
+            .header-content { flex-direction: column; text-align: center; }
+            .header h2 { font-size: 1rem; }
+            .current-date { width: 100%; text-align: center; }
+            
+            .grade-nav { position: static; padding: 12px; }
+            .grade-links { flex-wrap: wrap; justify-content: center; }
+            .grade-link { padding: 5px 10px; min-width: 40px; font-size: 0.8rem; }
+            
+            .books-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 8px;
+            }
+            
+            .book-card { padding: 10px 8px; }
+            .book-cover { width: 40px; height: 40px; }
+            .book-cover i { font-size: 1.3rem; }
+            .book-title { font-size: 0.85rem; }
+            
+            .section-header { gap: 8px; }
+            .section-icon { width: 35px; height: 35px; font-size: 1rem; }
+            
+            .favorites-section, .other-books-section { padding: 12px; }
+        }
+        
+        /* SMALL SCREENS */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .books-grid { 
+                grid-template-columns: repeat(3, 1fr); 
+            }
+        }
+        
+        /* MEDIUM SCREENS */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .books-grid { 
+                grid-template-columns: repeat(4, 1fr); 
+            }
+        }
+        
+        /* LARGE SCREENS */
+        @media (min-width: 1025px) {
+            .books-grid { 
+                grid-template-columns: repeat(6, 1fr); 
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-btn" aria-label="Back to Home">
+                    <i class="fas fa-arrow-left" aria-hidden="true"></i> Back
+                </a>
+                <h2>DANFER School</h2>
+                <div class="current-date" id="currentDate" aria-live="polite"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container section-padding">
+        <div class="page-title">
+            <h1><i class="fas fa-book" aria-hidden="true"></i> Books</h1>
+            <p>Access textbooks for all grades</p>
+        </div>
+
+        <!-- Search Box -->
+        <div class="search-box">
+            <i class="fas fa-search search-icon" aria-hidden="true"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search books..." aria-label="Search books">
+            <button class="search-clear" id="searchClear" aria-label="Clear search">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Favorites Section -->
+        <div class="favorites-section" id="favorites-section" style="display: none;">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h2 class="section-title">My Favorites</h2>
+            </div>
+            <div class="books-grid" id="favorites-grid"></div>
+        </div>
+
+        <!-- No Results Message -->
+        <div class="no-results" id="noResults">
+            <i class="fas fa-book"></i>
+            <h3>No Books Found</h3>
+            <p>Try different keywords</p>
+        </div>
+
+        <!-- Grade Navigation -->
+        <div class="grade-nav">
+            <h3><i class="fas fa-layer-group" aria-hidden="true"></i> Grades</h3>
+            <div class="grade-links" role="navigation">
+                <a href="#grade1" class="grade-link">1</a>
+                <a href="#grade2" class="grade-link">2</a>
+                <a href="#grade3" class="grade-link">3</a>
+                <a href="#grade4" class="grade-link">4</a>
+                <a href="#grade5" class="grade-link">5</a>
+                <a href="#grade6" class="grade-link">6</a>
+                <a href="#grade7" class="grade-link">7</a>
+                <a href="#grade8" class="grade-link">8</a>
+                <a href="#grade9" class="grade-link">9</a>
+                <a href="#grade10" class="grade-link">10</a>
+                <a href="#grade11" class="grade-link">11</a>
+                <a href="#grade12" class="grade-link">12</a>
+                <a href="#other-books" class="grade-link other">Other</a>
+            </div>
+        </div>
+
+        <!-- Books Content -->
+        <div class="books-content" id="booksContent">
+            
+           
+           
+
+            <!-- Continue with Grades 6-11 (same pattern) -->
+             <!-- Grade 9 -->
+            <section id="grade9" class="books-section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h2 class="section-title">Grade 9</h2>
+                </div>
+                <div class="books-grid">
+                    
+                    <!-- GRADE 9 BOOKS -->
+<div class="book-card" data-title="Biology Grade 9" data-subject="Biology" data-path="assets\books\9\G9bio.pdf">
+    <div class="book-cover"><i class="fas fa-leaf"></i></div>
+    <h3 class="book-title">Biology G9</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Biology</span></div>
+    <div class="book-actions">
+        <a href="assets\books\9\G9bio.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Chemistry Grade 9" data-subject="Chemistry" data-path="assets\books\9\G9che.pdf">
+    <div class="book-cover"><i class="fas fa-flask"></i></div>
+    <h3 class="book-title">Chemistry G9</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Chemistry</span></div>
+    <div class="book-actions">
+        <a href="assets\books\9\G9che.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Citizenship Grade 9" data-subject="Citizenship" data-path="assets\books\9\G9cit.pdf">
+    <div class="book-cover"><i class="fas fa-users"></i></div>
+    <h3 class="book-title">Citizenship G9</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Citizenship</span></div>
+    <div class="book-actions">
+        <a href="assets\books\9\G9cit.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Economics Grade 9" data-subject="Economics" data-path="assets\books\9\G9eco.pdf">
+    <div class="book-cover"><i class="fas fa-chart-line"></i></div>
+    <h3 class="book-title">Economics G9</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Economics</span></div>
+    <div class="book-actions">
+        <a href="assets\books\9\G9eco.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="English Grade 9" data-subject="English" data-path="assets\books\9\G9eng.pdf">
+    <div class="book-cover"><i class="fas fa-language"></i></div>
+    <h3 class="book-title">English G9</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">English</span></div>
+    <div class="book-actions">
+        <a href="assets\books\9\G9eng.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Geography Grade 9" data-subject="Geography" data-path="assets\books\9\G9geo.pdf">
+    <div class="book-cover"><i class="fas fa-globe-africa"></i></div>
+    <h3 class="book-title">Geography G9</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Geography</span></div>
+    <div class="book-actions">
+        <a href="assets\books\9\G9geo.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+<div class="book-card" data-title="History Grade 9" data-subject="History" data-path="assets\books\9\G9his.pdf">
+    <div class="book-cover"><i class="fas fa-landmark"></i></div>
+    <h3 class="book-title">History G9</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">History</span></div>
+    <div class="book-actions">
+        <a href="assets\books\9\G9his.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Health & PE Grade 9" data-subject="Health & PE" data-path="assets\books\9\G9hpe.pdf">
+    <div class="book-cover"><i class="fas fa-heartbeat"></i></div>
+    <h3 class="book-title">HPE G9</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Health & Physical Education</span></div>
+    <div class="book-actions">
+        <a href="assets\books\9\G9hpe.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="ICT Grade 9" data-subject="ICT" data-path="assets\books\9\G9it.pdf">
+    <div class="book-cover"><i class="fas fa-laptop"></i></div>
+    <h3 class="book-title">ICT G9</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">ICT</span></div>
+    <div class="book-actions">
+        <a href="assets\books\9\G9it.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Mathematics Grade 9" data-subject="Mathematics" data-path="assets\books\9\G9math.pdf">
+    <div class="book-cover"><i class="fas fa-calculator"></i></div>
+    <h3 class="book-title">Mathematics G9</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Mathematics</span></div>
+    <div class="book-actions">
+        <a href="assets\books\9\G9math.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+                  
+                </div>
+            </section>
+            <!-- Grade 10 -->
+            <section id="grade10" class="books-section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h2 class="section-title">Grade 10</h2>
+                </div>
+                <div class="books-grid">
+                    
+                  <!-- GRADE 10 BOOKS -->
+<div class="book-card" data-title="Geography Grade 10" data-subject="Geography" data-path="assets\books\10\G10geo.pdf">
+    <div class="book-cover"><i class="fas fa-globe-africa"></i></div>
+    <h3 class="book-title">Geography G10</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Geography</span></div>
+    <div class="book-actions">
+        <a href="assets\books\10\G10geo.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="History Grade 10" data-subject="History" data-path="assets\books\10\G10his.pdf">
+    <div class="book-cover"><i class="fas fa-landmark"></i></div>
+    <h3 class="book-title">History G10</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">History</span></div>
+    <div class="book-actions">
+        <a href="assets\books\10\G10his.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+<div class="book-card" data-title="Health & PE Grade 10" data-subject="Health & PE" data-path="assets\books\10\G10hpe.pdf">
+    <div class="book-cover"><i class="fas fa-heartbeat"></i></div>
+    <h3 class="book-title">HPE G10</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Health & Physical Education </span></div>
+    <div class="book-actions">
+        <a href="assets\books\10\G10hpe.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="ICT Grade 10" data-subject="ICT" data-path="assets\books\10\G10it.pdf">
+    <div class="book-cover"><i class="fas fa-laptop"></i></div>
+    <h3 class="book-title">ICT G10</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">ICT</span></div>
+    <div class="book-actions">
+        <a href="assets\books\10\G10it.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Mathematics Grade 10" data-subject="Mathematics" data-path="assets\books\10\G10matg.pdf">
+    <div class="book-cover"><i class="fas fa-calculator"></i></div>
+    <h3 class="book-title">Mathematics G10</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Mathematics</span></div>
+    <div class="book-actions">
+        <a href="assets\books\10\G10matg.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+                </div>
+            </section>
+            <!-- Grade 11 -->
+            <section id="grade11" class="books-section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h2 class="section-title">Grade 11</h2>
+                </div>
+                <div class="books-grid">
+                    
+                    <!-- GRADE 11 BOOKS -->
+<div class="book-card" data-title="Biology Grade 11" data-subject="Biology" data-path="assets\books\11\G11bio.pdf">
+    <div class="book-cover"><i class="fas fa-leaf"></i></div>
+    <h3 class="book-title">Biology G11</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Biology</span></div>
+    <div class="book-actions">
+        <a href="assets\books\11\G11bio.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Chemistry Grade 11" data-subject="Chemistry" data-path="assets\books\11\G11che.pdf">
+    <div class="book-cover"><i class="fas fa-flask"></i></div>
+    <h3 class="book-title">Chemistry G11</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Chemistry</span></div>
+    <div class="book-actions">
+        <a href="assets\books\11\G11che.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Agriculture Grade 11" data-subject="Agriculture" data-path="assets\books\11\G11agri.pdf">
+    <div class="book-cover"><i class="fas fa-seedling"></i></div>
+    <h3 class="book-title">Agriculture G11</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Agriculture</span></div>
+    <div class="book-actions">
+        <a href="assets\books\11\G11agri.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+<div class="book-card" data-title="Economics Grade 11" data-subject="Economics" data-path="assets\books\11\G11eco.pdf">
+    <div class="book-cover"><i class="fas fa-chart-line"></i></div>
+    <h3 class="book-title">Economics G11</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Economics</span></div>
+    <div class="book-actions">
+        <a href="assets\books\11\G11eco.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="English Grade 11" data-subject="English" data-path="assets\books\11\G11eng.pdf">
+    <div class="book-cover"><i class="fas fa-language"></i></div>
+    <h3 class="book-title">English G11</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">English</span></div>
+    <div class="book-actions">
+        <a href="assets\books\11\G11eng.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Geography Grade 11" data-subject="Geography" data-path="assets\books\11\G11geo.pdf">
+    <div class="book-cover"><i class="fas fa-globe-africa"></i></div>
+    <h3 class="book-title">Geography G11</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Geography</span></div>
+    <div class="book-actions">
+        <a href="assets\books\11\G11geo.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="History Grade 11" data-subject="History" data-path="assets\books\11\G11his.pdf">
+    <div class="book-cover"><i class="fas fa-landmark"></i></div>
+    <h3 class="book-title">History G11</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">History</span></div>
+    <div class="book-actions">
+        <a href="assets\books\11\G11his.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="ICT Grade 11" data-subject="ICT" data-path="assets\books\11\G11it.pdf">
+    <div class="book-cover"><i class="fas fa-laptop"></i></div>
+    <h3 class="book-title">ICT G11</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">ICT</span></div>
+    <div class="book-actions">
+        <a href="assets\books\11\G11it.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Mathematics Grade 11" data-subject="Mathematics" data-path="assets\books\11\G11math.pdf">
+    <div class="book-cover"><i class="fas fa-calculator"></i></div>
+    <h3 class="book-title">Mathematics G11</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Mathematics</span></div>
+    <div class="book-actions">
+        <a href="assets\books\11\G11math.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+<div class="book-card" data-title="Physics Grade 11" data-subject="Physics" data-path="assets\books\11\G11phy.pdf">
+    <div class="book-cover"><i class="fas fa-atom"></i></div>
+    <h3 class="book-title">Physics G11</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Physics</span></div>
+    <div class="book-actions">
+        <a href="assets\books\11\G11phy.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+                  
+                </div>
+            </section>
+
+            <!-- Grade 12 -->
+            <section id="grade12" class="books-section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h2 class="section-title">Grade 12</h2>
+                </div>
+                <div class="books-grid">
+                    
+                    
+<!-- GRADE 12 BOOKS -->
+<div class="book-card" data-title="Biology Grade 12" data-subject="Biology" data-path="assets\books\12\G12bio.pdf">
+    <div class="book-cover"><i class="fas fa-leaf"></i></div>
+    <h3 class="book-title">Biology G12</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Biology</span></div>
+    <div class="book-actions">
+        <a href="assets\books\12\G12bio.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Chemistry Grade 12" data-subject="Chemistry" data-path="assets\books\12\G12che.pdf">
+    <div class="book-cover"><i class="fas fa-flask"></i></div>
+    <h3 class="book-title">Chemistry G12</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Chemistry</span></div>
+    <div class="book-actions">
+        <a href="assets\books\12\G12che.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Agriculture Grade 12" data-subject="Agriculture" data-path="assets\books\12\G12agri.pdf">
+    <div class="book-cover"><i class="fas fa-seedling"></i></div>
+    <h3 class="book-title">Agriculture G12</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Agriculture</span></div>
+    <div class="book-actions">
+        <a href="assets\books\12\G12agri.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Economics Grade 12" data-subject="Economics" data-path="assets\books\12\G12eco.pdf">
+    <div class="book-cover"><i class="fas fa-chart-line"></i></div>
+    <h3 class="book-title">Economics G12</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Economics</span></div>
+    <div class="book-actions">
+        <a href="assets\books\12\G12eco.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="English Grade 12" data-subject="English" data-path="assets\books\12\G12eng.pdf">
+    <div class="book-cover"><i class="fas fa-language"></i></div>
+    <h3 class="book-title">English G12</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">English</span></div>
+    <div class="book-actions">
+        <a href="assets\books\12\G12eng.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+<div class="book-card" data-title="Geography Grade 12" data-subject="Geography" data-path="assets\books\12\G12geo.pdf">
+    <div class="book-cover"><i class="fas fa-globe-africa"></i></div>
+    <h3 class="book-title">Geography G12</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Geography</span></div>
+    <div class="book-actions">
+        <a href="assets\books\12\G12geo.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="History Grade 12" data-subject="History" data-path="assets\books\12\G12his.pdf">
+    <div class="book-cover"><i class="fas fa-landmark"></i></div>
+    <h3 class="book-title">History G12</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">History</span></div>
+    <div class="book-actions">
+        <a href="assets\books\12\G12his.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="ICT Grade 12" data-subject="ICT" data-path="assets\books\12\G12it.pdf">
+    <div class="book-cover"><i class="fas fa-laptop"></i></div>
+    <h3 class="book-title">ICT G12</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">ICT</span></div>
+    <div class="book-actions">
+        <a href="assets\books\12\G12it.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Mathematics Grade 12" data-subject="Mathematics" data-path="assets\books\12\G12math.pdf">
+    <div class="book-cover"><i class="fas fa-calculator"></i></div>
+    <h3 class="book-title">Mathematics G12</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Mathematics</span></div>
+    <div class="book-actions">
+        <a href="assets\books\12\G12math.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+
+<div class="book-card" data-title="Physics Grade 12" data-subject="Physics" data-path="assets\books\12\G12phy.pdf">
+    <div class="book-cover"><i class="fas fa-atom"></i></div>
+    <h3 class="book-title">Physics G12</h3>
+    <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+    <div class="book-meta"><span class="book-subject">Physics</span></div>
+    <div class="book-actions">
+        <a href="assets\books\12\G12phy.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+    </div>
+    <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+</div>
+                  
+                </div>
+            </section>
+
+            <!-- Other Books with Chemistry 11 -->
+            <section id="other-books" class="books-section other-books-section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-bookmark"></i></div>
+                    <h2 class="section-title">Other Books</h2>
+                </div>
+                <div class="books-grid">
+                    <div class="book-card" data-title="Chemistry Grade 11" data-subject="Chemistry" data-path="books/grade11/chemistry11.pdf">
+                        <div class="book-cover"><i class="fas fa-flask"></i></div>
+                        <h3 class="book-title">Chemistry G11</h3>
+                        <div class="book-author"><i class="fas fa-user"></i> MoE</div>
+                        <div class="book-meta"><span class="book-subject">Chemistry</span></div>
+                        <div class="book-actions">
+                            <a href="books/grade11/chemistry11.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+                        </div>
+                        <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+                    </div>
+                    <div class="book-card" data-title="Dictionary" data-subject="Reference" data-path="books/reference/dictionary.pdf">
+                        <div class="book-cover"><i class="fas fa-dictionary"></i></div>
+                        <h3 class="book-title">Dictionary</h3>
+                        <div class="book-author"><i class="fas fa-user"></i> Lang Dept</div>
+                        <div class="book-meta"><span class="book-subject">Reference</span></div>
+                        <div class="book-actions">
+                            <a href="books/reference/dictionary.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+                        </div>
+                        <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+                    </div>
+                    <div class="book-card" data-title="World Atlas" data-subject="Geography" data-path="books/reference/atlas.pdf">
+                        <div class="book-cover"><i class="fas fa-globe"></i></div>
+                        <h3 class="book-title">World Atlas</h3>
+                        <div class="book-author"><i class="fas fa-user"></i> Geo Dept</div>
+                        <div class="book-meta"><span class="book-subject">Geography</span></div>
+                        <div class="book-actions">
+                            <a href="books/reference/atlas.pdf" class="open-btn" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+                        </div>
+                        <button class="favorite-btn" title="Add to favorites"><i class="far fa-star"></i></button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current date
+            const currentDateElement = document.getElementById('currentDate');
+            if (currentDateElement) {
+                const now = new Date();
+                currentDateElement.textContent = now.toLocaleDateString('en-US', { 
+                    weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' 
+                });
+            }
+
+            // Get elements
+            const searchInput = document.getElementById('searchInput');
+            const searchClear = document.getElementById('searchClear');
+            const noResults = document.getElementById('noResults');
+            const sections = document.querySelectorAll('.books-section');
+            const gradeLinks = document.querySelectorAll('.grade-link');
+            const backToTop = document.getElementById('backToTop');
+            const favoritesSection = document.getElementById('favorites-section');
+            const favoritesGrid = document.getElementById('favorites-grid');
+
+            // FAVORITES FUNCTIONALITY
+            let favorites = JSON.parse(localStorage.getItem('favoriteBooks')) || [];
+
+            function updateFavoritesDisplay() {
+                if (favorites.length > 0) {
+                    favoritesSection.style.display = 'block';
+                    favoritesGrid.innerHTML = '';
+                    
+                    favorites.forEach(bookId => {
+                        const originalCard = document.querySelector(`.book-card[data-id="${bookId}"]`);
+                        if (originalCard) {
+                            const clone = originalCard.cloneNode(true);
+                            const favBtn = clone.querySelector('.favorite-btn');
+                            if (favBtn) {
+                                favBtn.innerHTML = '<i class="fas fa-star"></i>';
+                                favBtn.classList.add('active');
+                            }
+                            
+                            // Fix Open button links in clone
+                            const openBtn = clone.querySelector('.open-btn');
+                            if (openBtn) {
+                                const originalPath = originalCard.dataset.path;
+                                if (originalPath) {
+                                    openBtn.href = originalPath;
+                                }
+                            }
+                            
+                            favoritesGrid.appendChild(clone);
+                        }
+                    });
+
+                    // Add event listeners to cloned favorite buttons
+                    favoritesGrid.querySelectorAll('.favorite-btn').forEach(btn => {
+                        btn.addEventListener('click', toggleFavorite);
+                    });
+                } else {
+                    favoritesSection.style.display = 'none';
+                }
+            }
+
+            function toggleFavorite(e) {
+                e.preventDefault();
+                const btn = e.currentTarget;
+                const bookCard = btn.closest('.book-card');
+                const bookId = bookCard.dataset.title.replace(/\s+/g, '-').toLowerCase();
+                
+                // Store the original card reference
+                const originalCard = document.querySelector(`.book-card[data-id="${bookId}"]`) || bookCard;
+                
+                if (btn.classList.contains('active')) {
+                    btn.innerHTML = '<i class="far fa-star"></i>';
+                    btn.classList.remove('active');
+                    favorites = favorites.filter(id => id !== bookId);
+                } else {
+                    btn.innerHTML = '<i class="fas fa-star"></i>';
+                    btn.classList.add('active');
+                    if (!favorites.includes(bookId)) {
+                        favorites.push(bookId);
+                    }
+                }
+                
+                // Sync the other card if it exists
+                const otherCard = document.querySelector(`.book-card[data-id="${bookId}"]:not([data-favorites-clone="true"])`);
+                if (otherCard && otherCard !== bookCard) {
+                    const otherBtn = otherCard.querySelector('.favorite-btn');
+                    if (otherBtn) {
+                        otherBtn.innerHTML = btn.innerHTML;
+                        otherBtn.classList.toggle('active', btn.classList.contains('active'));
+                    }
+                }
+                
+                localStorage.setItem('favoriteBooks', JSON.stringify(favorites));
+                updateFavoritesDisplay();
+            }
+
+            // Initialize book cards
+            document.querySelectorAll('.book-card').forEach(card => {
+                const title = card.dataset.title;
+                const bookId = title.replace(/\s+/g, '-').toLowerCase();
+                card.dataset.id = bookId;
+                
+                const favBtn = card.querySelector('.favorite-btn');
+                if (favorites.includes(bookId)) {
+                    favBtn.innerHTML = '<i class="fas fa-star"></i>';
+                    favBtn.classList.add('active');
+                }
+                
+                favBtn.addEventListener('click', toggleFavorite);
+            });
+
+            updateFavoritesDisplay();
+
+            // SEARCH FUNCTIONALITY
+            let searchTimeout;
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const allBookCards = document.querySelectorAll('.book-card:not(#favorites-grid .book-card)');
+                let hasResults = false;
+                
+                searchClear.style.display = searchTerm ? 'block' : 'none';
+                
+                allBookCards.forEach(card => {
+                    const title = card.dataset.title?.toLowerCase() || '';
+                    const subject = card.dataset.subject?.toLowerCase() || '';
+                    
+                    if (searchTerm === '' || title.includes(searchTerm) || subject.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                        hasResults = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                sections.forEach(section => {
+                    if (section.id !== 'favorites-section') {
+                        const visibleCards = section.querySelectorAll('.book-card:not(#favorites-grid .book-card)');
+                        const hasVisible = Array.from(visibleCards).some(card => card.style.display !== 'none');
+                        section.style.display = (searchTerm === '' || hasVisible) ? 'block' : 'none';
+                    }
+                });
+                
+                noResults.style.display = (searchTerm && !hasResults) ? 'block' : 'none';
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(performSearch, 300);
+                });
+            }
+
+            if (searchClear) {
+                searchClear.addEventListener('click', function() {
+                    searchInput.value = '';
+                    performSearch();
+                    searchInput.focus();
+                });
+            }
+
+            // SMOOTH SCROLLING
+            gradeLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        gradeLinks.forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        history.pushState(null, null, targetId);
+                    }
+                });
+            });
+
+            // SCROLL SPY
+            function updateActiveGradeLink() {
+                const scrollPos = window.scrollY + 120;
+                
+                sections.forEach(section => {
+                    if (section.id && section.id !== 'favorites-section') {
+                        const sectionTop = section.offsetTop;
+                        const sectionBottom = sectionTop + section.offsetHeight;
+                        
+                        if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+                            gradeLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href') === `#${section.id}`) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', function() {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(updateActiveGradeLink, 50);
+                
+                if (backToTop) {
+                    backToTop.classList.toggle('visible', window.scrollY > 300);
+                }
+            });
+
+            // BACK TO TOP
+            if (backToTop) {
+                backToTop.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            // INITIAL HASH
+            if (window.location.hash) {
+                const targetSection = document.querySelector(window.location.hash);
+                if (targetSection) {
+                    setTimeout(() => {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
