@@ -2031,8 +2031,8 @@
     if (!loadingWrapper) return;
     
     // Random duration between 3 and 6 seconds (in ms)
-    const minDuration = 2000;
-    const maxDuration = 4000;
+    const minDuration = 1000;
+    const maxDuration = 2000;
     const duration = Math.floor(Math.random() * (maxDuration - minDuration + 1)) + minDuration;
     
     const startTime = performance.now();
@@ -2413,4 +2413,5 @@
   });
 </script>
 </body>
+
 </html>
